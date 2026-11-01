@@ -13,6 +13,12 @@
 return function(H)
   local capture = require("debugging.views.capture")
   local orig_base_dir = capture.base_dir
+  -- the default is debug state, not a folder of the config repository (and the health check looks at the same one)
+  H.eq(
+    orig_base_dir,
+    vim.fn.stdpath("state") .. "/debug_views",
+    "capture: the default directory is below stdpath('state')"
+  )
   local orig_noice = package.loaded["noice"]
   local orig_manager = package.loaded["noice.message.manager"]
 

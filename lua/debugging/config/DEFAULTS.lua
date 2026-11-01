@@ -74,7 +74,7 @@ local DEFAULTS = {
   views = {
     keymaps = { enable = true, prefix = "<lt>" },
     capture = true,
-    output_dir = nil, -- defaults to stdpath("config")/docs/debug_views inside capture
+    output_dir = nil, -- defaults to stdpath("state")/debug_views inside capture
     -- The <m>/<n>/<e> recent-messages popup (lib.nvim.messages + ui.kit.message_log
     -- when ui.nvim is installed, a static lib.nvim.output.viewer dump otherwise).
     recent = {

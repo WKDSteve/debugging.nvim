@@ -65,7 +65,7 @@ section.
 ## Capture to file, to clipboard, or both
 
 `capture_messages` writes the current `:messages` output to a timestamped file
-under `opts.views.output_dir` (default: `stdpath("config")/docs/debug_views`),
+under `opts.views.output_dir` (default: `stdpath("state")/debug_views`),
 copies it to the clipboard, or does both.
 
 Three separate keys cover the choice rather than a prefix tree: `<lt>c` for

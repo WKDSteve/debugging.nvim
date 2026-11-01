@@ -232,7 +232,8 @@ function M.check()
   end
 
   -- ── Write permissions ─────────────────────────────────────────────────────
-  local state_dir = vim.fn.stdpath("state") .. "/debug_views"
+  -- the directory capture writes to (its default and `views.output_dir`), not a guess of the health check
+  local state_dir = require("debugging.views.capture").base_dir
   if pcall(vim.fn.mkdir, state_dir, "p") then
     vim.health.ok("write permissions OK: " .. state_dir)
   else

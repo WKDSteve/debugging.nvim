@@ -51,7 +51,7 @@ require("debugging").setup({
   views = {
     keymaps  = { enable = true, prefix = "<lt>" },
     capture  = true,
-    output_dir = nil,  -- default: stdpath("config")/docs/debug_views
+    output_dir = nil,  -- default: stdpath("state")/debug_views
     recent   = {       -- the <lt>m / <lt>n / <lt>e popup, see "Recent-messages popup" below
       window_s = 10, min_entries = 5, order = "newest_last", collapsed_default = true,
       wrap_width = nil,

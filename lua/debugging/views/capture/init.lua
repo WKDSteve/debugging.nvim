@@ -15,8 +15,8 @@ local write_file = lazy.require("lib.nvim.fs.write.to_file")
 
 local M = {}
 
----@type string  Default capture directory
-M.base_dir = vim.fn.stdpath("config") .. "/docs/debug_views"
+---@type string  Default capture directory: dumps are debug state, not files of the user's config repository
+M.base_dir = vim.fn.stdpath("state") .. "/debug_views"
 
 ---@internal
 ---@param s string

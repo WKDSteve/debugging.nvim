@@ -292,6 +292,17 @@ return function(H)
     )
   end)
 
+  -- the write check names the directory capture writes to (a changed `capture.base_dir` moves it)
+  do
+    local capture = require("debugging.views.capture")
+    local real = capture.base_dir
+    capture.base_dir = vim.fn.tempname() .. "/dumps"
+    with_popup_stubs({ message_log = function() end }, attached_noice, function(seen)
+      H.ok(find_any(seen, "dumps"), "health: the write check names capture's directory")
+    end)
+    capture.base_dir = real
+  end
+
   -- 8: section membership. "debugging: recent popup" holds only the popup's own entries; which-key,
   -- gitsuite, noice and the debug_views write check stay under "debugging: externals" (the popup
   -- section once started mid-externals and swallowed them).
