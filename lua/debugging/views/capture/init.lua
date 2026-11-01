@@ -285,6 +285,15 @@ local function try_exec2()
 end
 
 ---@internal
+---The capture strategies in the order they are tried.
+---@type { name: string, fn: fun(): boolean, string|nil, string|nil, boolean|nil }[]
+local STRATEGIES = {
+  { name = "noice", fn = try_noice },
+  { name = "execute", fn = try_execute },
+  { name = "exec2", fn = try_exec2 },
+}
+
+---@internal
 ---Capture messages with multiple fallback strategies
 ---@param debug boolean
 ---@return boolean success, string|nil messages, string|nil source
@@ -292,37 +301,18 @@ local function capture_messages_raw(debug)
   local attempts = {}
   local any_errored = false
 
-  -- Strategy 1: Try Noice first (most reliable with Noice installed)
-  local ok, msgs, src = try_noice()
-  table.insert(attempts, { method = "noice", success = ok, source = src })
-  if ok then
-    if debug then
-      notify.debug("DebugViews: ✓ captured via " .. src)
+  -- Ordered fallback chain: Noice first (most reliable with Noice installed), then vim.fn.execute, then
+  -- nvim_exec2. A strategy returns ok, messages, source and - when it can throw - a fourth "errored" flag.
+  for _, strategy in ipairs(STRATEGIES) do
+    local ok, msgs, src, errored = strategy.fn()
+    any_errored = any_errored or errored == true
+    attempts[#attempts + 1] = { method = strategy.name, success = ok, source = src }
+    if ok then
+      if debug then
+        notify.debug("DebugViews: ✓ captured via " .. src)
+      end
+      return true, msgs, src
     end
-    return true, msgs, src
-  end
-
-  -- Strategy 2: Try vim.fn.execute
-  local errored
-  ok, msgs, src, errored = try_execute()
-  any_errored = any_errored or errored
-  table.insert(attempts, { method = "execute", success = ok, source = src })
-  if ok then
-    if debug then
-      notify.debug("DebugViews: ✓ captured via " .. src)
-    end
-    return true, msgs, src
-  end
-
-  -- Strategy 3: Try nvim_exec2
-  ok, msgs, src, errored = try_exec2()
-  any_errored = any_errored or errored
-  table.insert(attempts, { method = "exec2", success = ok, source = src })
-  if ok then
-    if debug then
-      notify.debug("DebugViews: ✓ captured via " .. src)
-    end
-    return true, msgs, src
   end
 
   -- Every strategy came back empty rather than throwing: the message
