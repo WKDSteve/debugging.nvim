@@ -400,6 +400,25 @@ return function(H)
       eq(#open_opts.load_more("older"), 0, "then the ring is exhausted")
       eq(#open_opts.entries, 5, "the entries handed over are not mutated by paging")
 
+      -- `-`: a page taken out again comes back with the next `+`, none is skipped.
+      local function page_text()
+        local out = {}
+        for _, e in ipairs(open_opts.load_more("older")) do
+          out[#out + 1] = e.content
+        end
+        return table.concat(out, ",")
+      end
+      open_opts.on_unload("older", 1)
+      eq(page_text(), "300", "the page unloaded last loads again")
+      open_opts.on_unload("older", 1)
+      open_opts.on_unload("older", 1)
+      eq(page_text(), "62", "unloading twice goes back two pages")
+      eq(page_text(), "300", "and paging goes on from there")
+      open_opts.on_unload("older", 1)
+      open_opts.on_unload("older", 1)
+      open_opts.on_unload("older", 1)
+      eq(page_text(), "62", "unloading more than was loaded stays on the first page")
+
       -- An empty ring offers no "more above" hint at all.
       ring = {}
       require("debugging.views.recent").show("error")

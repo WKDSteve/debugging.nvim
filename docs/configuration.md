@@ -153,7 +153,7 @@ Press `?` in the popup for this list as a cheatsheet (it opens over the popup,
 | `<C-h>`, `<BS>`, `zM` | collapse all entries (first line only) |
 | `<C-e>` | flip between all expanded / all collapsed |
 | `<C-j>`, `+` | load older history (another `window_s` seconds; skips quiet stretches) |
-| `<C-k>`, `-` | load newer entries (does not yet drop loaded older history again) |
+| `<C-k>`, `-` | take the older page loaded last out again; `+` loads it back |
 | `?`, `g?` | cheatsheet |
 | `q`, `<Esc>` | close |
 

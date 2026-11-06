@@ -375,6 +375,10 @@ function M.show(filter)
     return
   end
 
+  -- The cursor before each loaded page, so `-` can hand the page back and `+` loads it again.
+  ---@type number[]
+  local page_bounds = {}
+
   ---Everything older than what is loaded so far, oldest first.
   ---@return table[]
   local function older_than_loaded()
@@ -411,8 +415,12 @@ function M.show(filter)
         until_ms = loaded_since_ms - 0.001,
         levels = levels,
       })
+      page_bounds[#page_bounds + 1] = loaded_since_ms
       loaded_since_ms = new_since
       return display_entries(older)
+    end,
+    on_unload = function()
+      loaded_since_ms = table.remove(page_bounds) or loaded_since_ms
     end,
   })
   if not handle then
