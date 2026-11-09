@@ -37,4 +37,18 @@ return {
   -- Nothing legitimate needs an allowlist: no spec spawns a foreign executable or opens a socket,
   -- and writes below the child's own stdpath() sandbox are not findings.
   guard_allow = { fs = {}, spawn = {}, network = {} },
+  -- The pipeline is derived (`scripts/test.sh ci list`). The GitHub workflow is generated from `workflow`:
+  -- `testing init --workflow=public --force` writes it (testing.nvim docs/WORKFLOW-CI.md), the step
+  -- workflow-in-sync checks it.
+  ci = {
+    workflow = {
+      name = "debugging.nvim",
+      layout = "hosted",
+      -- the steps that depend on the platform: the windows and macOS legs run only these
+      platform = { "suite", "conformance" },
+    },
+    steps = {
+      ["workflow-in-sync"] = { preset = "workflow-in-sync" },
+    },
+  },
 }
