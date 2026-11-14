@@ -74,6 +74,20 @@ local function list(value)
 end
 
 ---@internal
+---A list of `{ dir, refs, error? }` entries. An entry of another shape (a
+---version that lists plain folders there) becomes one with that value as its
+---folder: a report that raised on it would show nothing at all.
+---@param value any
+---@return table[]
+local function handle_list(value)
+  local out = {}
+  for _, entry in ipairs(list(value)) do
+    out[#out + 1] = type(entry) == "table" and entry or { dir = entry }
+  end
+  return out
+end
+
+---@internal
 ---Render a report: scratch float when configured and possible, one
 ---notification otherwise. Returns the lines either way.
 ---@param title string
@@ -169,7 +183,7 @@ function M.watchers()
   if not state then
     return nil
   end
-  local watchers = list(state.watchers)
+  local watchers = handle_list(state.watchers)
   local stats = type(state.stats) == "table" and state.stats or {}
   local lines = header(state)
   lines[#lines + 1] = ("events    %s events, %s reports, %s quarantines since Neovim started"):format(
@@ -233,7 +247,8 @@ function M.handles()
   if not state then
     return nil
   end
-  local watchers, released, roots = list(state.watchers), list(state.released), list(state.roots)
+  local watchers, released, roots =
+    handle_list(state.watchers), handle_list(state.released), list(state.roots)
   local lines = header(state)
   lines[#lines + 1] = ""
   lines[#lines + 1] = ("roots (%d): the trees there are, one per tab that opened one"):format(

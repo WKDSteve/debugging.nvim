@@ -225,6 +225,13 @@ return function(H)
     H.match(joined(filetree.handles()), "roots %(0%)", "sparse: handles reads as empty")
     stand_in({ active = true, watchers = { {} } })
     H.match(joined(filetree.watchers()), "   %?  %?", "sparse: an entry without fields shows as ?")
+    -- an entry that is no table (a version that lists plain folders): shown, not raised on
+    stand_in({ active = true, watchers = { "C:/plain", 7 }, released = { "C:/gone" } })
+    local plain_ok, plain = pcall(filetree.watchers)
+    H.ok(plain_ok, "sparse: an entry that is no table does not raise: " .. tostring(plain))
+    H.match(joined(plain), "   %?  C:/plain", "sparse: ... it is shown as the folder")
+    H.match(joined(plain), "   %?  7", "sparse: ... whatever it is")
+    H.match(joined(filetree.handles()), "   %?  C:/gone", "sparse: the same for a released one")
 
     -- ================================================ the command
     stand_in(busy_state())
