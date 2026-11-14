@@ -31,6 +31,7 @@ local KNOWN = {
     nvim_options = true,
     markdown = true,
     neotree = true,
+    filetree = true,
     neotest = true,
     module_reload = true,
     proc_trace = true,
@@ -38,6 +39,7 @@ local KNOWN = {
   },
   terminals = { keylogger = { logfile = true } },
   neotree = { quarantine = true, safety = true },
+  filetree = { output = true },
   neotest = { output = true, markers = true, package_frameworks = true },
   views = {
     keymaps = { enable = true, prefix = true },

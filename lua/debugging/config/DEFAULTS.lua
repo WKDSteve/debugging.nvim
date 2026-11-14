@@ -16,6 +16,7 @@ local DEFAULTS = {
     nvim_options = true, -- :Debug indent
     markdown = true, -- :Debug markdown
     neotree = false, -- :Debug neotree … (config-specific, opt-in)
+    filetree = true, -- :Debug filetree watchers|quarantine|handles (the own tree of filetree.nvim)
     neotest = true, -- :Debug neotest adapters|state|file|root|framework|discover
     module_reload = true, -- :Debug module reload
     proc_trace = true, -- :Debug proc start|stop|status|log|watch
@@ -39,6 +40,14 @@ local DEFAULTS = {
   neotree = {
     quarantine = "config.neotree.watcher_quarantine",
     safety = "config.neotree.safety",
+  },
+
+  -- The file layer of filetree.nvim's own tree (:Debug filetree …). Reads
+  -- `require("filetree").fs_state()` when filetree.nvim is loaded; without it
+  -- every action is one notification.
+  filetree = {
+    -- "float" -- scratch float per report (default); "notify" -- one notification
+    output = "float",
   },
 
   -- neotest diagnostics (:Debug neotest …). Reads neotest's public state and

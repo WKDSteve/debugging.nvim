@@ -50,7 +50,7 @@ configured to.
 ## Per-category feature flags, with an `all = true` shorthand
 
 Every category (`views`, `reports`, `autocmds`, `tools`, `terminals`,
-`nvim_options`, `markdown`, `module_reload`, `neotree`, `neotest`,
+`nvim_options`, `markdown`, `module_reload`, `neotree`, `filetree`, `neotest`,
 `proc_trace`, `performance`) is gated by its own `features.*` boolean, checked by the
 dispatcher before the category is reachable from completion at all. Passing
 `{ all = true }` to `setup()` flips every flag on instead of listing each one.

@@ -251,6 +251,21 @@ local function build_registry()
         end,
       },
     },
+    filetree = {
+      feature = "filetree",
+      actions = { "watchers", "quarantine", "handles" },
+      run = {
+        watchers = function()
+          require("debugging.actions.filetree").watchers()
+        end,
+        quarantine = function()
+          require("debugging.actions.filetree").quarantine()
+        end,
+        handles = function()
+          require("debugging.actions.filetree").handles()
+        end,
+      },
+    },
     neotest = {
       feature = "neotest",
       actions = { "adapters", "state", "file", "root", "framework", "discover" },
@@ -364,6 +379,7 @@ local function enabled_categories()
     "proc",
     "performance",
     "neotree",
+    "filetree",
     "neotest",
     "health",
   }

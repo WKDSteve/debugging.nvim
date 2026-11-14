@@ -62,6 +62,7 @@ by `config.features.*`.
 | `:Debug proc watch [seconds]` | (Windows) external process-tree watcher — every child process of this Neovim instance, however it was spawned |
 | `:Debug performance startup [runs]` | Benchmark startup time and list the slowest sourced scripts |
 | `:Debug neotree status\|exit\|restart\|backup-list\|backup-clean\|dryrun-toggle\|dryrun-report\|queue-status\|queue-clear` | Opt-in Neo-tree safety bridge (needs `features.neotree = true`) |
+| `:Debug filetree watchers\|quarantine\|handles` | What the own tree of filetree.nvim holds on the disk: the `fs_event` handles with their askers and the event counters, the folders quarantined / changed / being read, and what is kept open and which folders that covers. Read from `require("filetree").fs_state()`; says so when filetree.nvim is not loaded or the own tree is not the active backend |
 | `:Debug neotest adapters\|state\|file\|root\|framework\|discover` | neotest diagnostics: configured vs registered adapters, the current buffer's positions tree, which adapter's `is_test_file()` claims the file, the root each adapter's `root()` derives plus the marker files in it, the cwd's framework markers and `package.json` frameworks, discovered positions per adapter. Read-only; without neotest each degrades to one notification |
 | `:Debug health` | Run `:checkhealth debugging` |
 

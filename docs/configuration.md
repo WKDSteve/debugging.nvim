@@ -15,6 +15,7 @@ require("debugging").setup({
     markdown     = true,   -- :Debug markdown
     module_reload = true,  -- :Debug module reload
     neotree      = false,  -- :Debug neotree … (config-specific, opt-in)
+    filetree     = true,   -- :Debug filetree watchers|quarantine|handles (the own tree of filetree.nvim)
     neotest      = true,   -- :Debug neotest adapters|state|file|root|framework|discover
     proc_trace   = true,   -- :Debug proc start|stop|status|log|watch
     performance  = true,   -- :Debug performance startup
@@ -33,6 +34,12 @@ require("debugging").setup({
   neotree = {
     quarantine = "config.neotree.watcher_quarantine",
     safety     = "config.neotree.safety",
+  },
+  -- The file layer of filetree.nvim's own tree (:Debug filetree …). Reads
+  -- require("filetree").fs_state() when filetree.nvim is loaded; without it
+  -- every action is one notification.
+  filetree = {
+    output = "float",    -- "float": a scratch float per report; "notify": one notification
   },
   -- neotest diagnostics (:Debug neotest …). Reads neotest's public state and
   -- the adapter tables from `neotest.setup()`; without neotest every action
@@ -169,7 +176,7 @@ older ones are loaded; a cursor on the newest entry follows the live feed.
 ## Validation
 
 Options are checked before they are merged. An unknown key — at the top
-level or inside `features`, `terminals`, `neotree`, `neotest`, `views` — is ignored
+level or inside `features`, `terminals`, `neotree`, `filetree`, `neotest`, `views` — is ignored
 with a warning that names the nearest known key (e.g. `views = { recen =
 {...} }` → "did you mean 'views.recent'?"), and an option table given as
 something other than a table falls back to that table's default. Both are

@@ -119,6 +119,33 @@ by default, because the config it talks to lives outside this plugin.
 - **Usercmds:** `:Debug neotree status|exit|restart|backup-list|backup-clean|dryrun-toggle|dryrun-report|queue-status|queue-clear`
   — see [BINDINGS.md](../BINDINGS.md#user-commands)
 
+## The file layer of filetree.nvim's own tree
+
+"Is it this Neovim that keeps the folder busy?" and "why does the tree not
+show the change?" both come down to what the own tree of
+[filetree.nvim](https://github.com/WKDSteve/filetree.nvim) (`adapter =
+"native"`) holds on the disk. Three reports print it: `watchers` lists the
+open `fs_event` handles with the number of askers per folder, how the tree
+watches (one handle per root, or one per folder read) and the event counters
+since Neovim started; `quarantine` lists the folders held back after an event
+storm, the ones with a change that is not reported yet, and the ones being
+read; `handles` lists everything kept open below the roots, the handles
+released for a running file operation, and says which folders a handle covers.
+
+Everything is read from one function, `require("filetree").fs_state()`, and
+nothing is started or changed. filetree.nvim is not loaded for it: a session
+that has not loaded it holds nothing, and the report says so in one
+notification. So does a filetree.nvim from before `fs_state()`, and one whose
+`fs_state()` fails. Every report says when the own tree is not the active
+backend (what is listed then was left by a tree opened before the backend
+changed). Reports open in a scratch float (`q` closes) or, with
+`filetree.output = "notify"`, in one notification.
+
+- **Module:** `actions/filetree.lua`
+- **Config:** `opts.features.filetree` (default `true`), `opts.filetree.output`
+- **Usercmds:** `:Debug filetree watchers|quarantine|handles`
+  — see [BINDINGS.md](../BINDINGS.md#user-commands)
+
 ## neotest diagnostics
 
 "Why is neotest not finding my tests?" has a fixed order of suspects, and

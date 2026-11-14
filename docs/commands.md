@@ -22,6 +22,7 @@ prose, with the reasoning behind each part.
 | `proc` | `start [threshold_ms]` · `stop` · `status` · `log` · `watch [seconds]` | Diagnose UI freezes: log the duration of `system()`/`jobstart` calls (a traceback for slow ones), plus an external process-tree watcher (Windows) |
 | `performance` | `startup [runs]` | Benchmark startup time (`--startuptime`) and list the slowest sourced scripts |
 | `neotree` | `status` · `exit` · `restart` · `backup-*` · `dryrun-*` · `queue-*` | Neo-tree safety bridge (opt-in, config-specific) |
+| `filetree` | `watchers` · `quarantine` · `handles` | What the own tree of filetree.nvim holds on the disk: watcher handles per folder, quarantined folders, open and released handles (read-only) |
 | `neotest` | `adapters` · `state` · `file` · `root` · `framework` · `discover` | Why is neotest not finding my tests: configured vs registered adapters, the current buffer's tree, which adapter claims the file, the roots they derive, the cwd's framework markers, discovered position counts |
 | `health` | — | Run `:checkhealth debugging` |
 
@@ -55,6 +56,9 @@ prose, with the reasoning behind each part.
 :Debug performance startup      " benchmark startup time (1 run)
 :Debug performance startup 5    " average the total over 5 launches
 :Debug neotree status           " Neo-tree quarantine status (opt-in)
+:Debug filetree watchers        " the fs_event handles of filetree.nvim's own tree, askers per folder
+:Debug filetree quarantine      " folders held back after an event storm, changed, being read
+:Debug filetree handles         " what this Neovim keeps open below the roots, and what that covers
 :Debug neotest adapters         " configured (neotest.setup) vs registered adapters
 :Debug neotest file             " does any adapter's is_test_file() want this file?
 :Debug neotest root             " the project root each adapter derives, and its markers
@@ -90,6 +94,7 @@ by the active config appear (e.g. `neotree` is opt-in — see `features.neotree`
 :Debug module <Tab>                → reload
 :Debug proc <Tab>                  → start stop status log watch
 :Debug performance <Tab>           → startup
+:Debug filetree <Tab>              → watchers quarantine handles
 :Debug neotest <Tab>               → adapters state file root framework discover
 ```
 
