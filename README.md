@@ -78,6 +78,7 @@ MIT — see [LICENSE](LICENSE).
 
 **Uses**
 
+- [filetree.nvim](https://github.com/WKDSteve/filetree.nvim): `:Debug filetree watchers|quarantine|handles` of debugging.nvim reports what the own tree of filetree.nvim holds on the disk (`fs_state()`), without loading filetree.nvim itself. ([picture](assets/graphs/pair/debugging.nvim--filetree.nvim.png))
 - [gitsuite.nvim](https://github.com/WKDSteve/gitsuite.nvim): The reports of debugging.nvim ask gitsuite.nvim whether a buffer has merge conflicts (`gitsuite.features.conflict`). ([picture](assets/graphs/pair/debugging.nvim--gitsuite.nvim.png))
 - [ui.nvim](https://github.com/WKDSteve/ui.nvim): The message popup of debugging.nvim is live and paginated with `ui.kit.message_log` of ui.nvim; without it the popup shows a static dump. ([picture](assets/graphs/pair/debugging.nvim--ui.nvim.png))
 - [lib.nvim](https://github.com/WKDSteve/lib.nvim): the shared base of the plugins.
