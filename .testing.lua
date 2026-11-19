@@ -6,8 +6,9 @@ return {
   -- Lua module root of the project.
   plugin = "debugging",
   -- How the spec files are run: "auto" = sniffed per file, "h" = on the project's own TESTS/harness.lua,
-  -- "script" = a self-running script in its own process.
-  dialect = "h",
+  -- "script" = a self-running script in its own process. TESTS/sheets_spec.lua is busted style: each feature
+  -- sheet is a case of its own named `sheet:<id>`, the name `testing sheets report` finds its result by.
+  dialect = { ["TESTS/sheets_spec.lua"] = "busted", ["*"] = "h" },
   -- Dependencies (directory names) put on the runtimepath: $<NAME>_DIR, .deps/<name>, ../<name>,
   -- stdpath('data')/lazy/<name>.
   deps = { "lib.nvim" },
@@ -34,9 +35,10 @@ return {
     gate = true,
     keymaps_off = { views = { keymaps = false } },
   },
-  -- Nothing legitimate needs an allowlist: no spec spawns a foreign executable or opens a socket,
-  -- and writes below the child's own stdpath() sandbox are not findings.
-  guard_allow = { fs = {}, spawn = {}, network = {} },
+  -- No spec spawns a foreign executable or opens a socket, and writes below the child's own stdpath() sandbox are
+  -- not findings. The one spawn is TESTS/sheets_spec.lua's: each feature sheet runs in a child editor (`nvim`); what
+  -- that editor starts (a headless nvim, pwsh, the clipboard stand-ins) is the sheet's, not the spec's.
+  guard_allow = { fs = {}, spawn = { "nvim" }, network = {} },
   -- The pipeline is derived (`scripts/test.sh ci list`). The GitHub workflow is generated from `workflow`:
   -- `testing init --workflow=public --force` writes it (testing.nvim docs/WORKFLOW-CI.md), the step
   -- workflow-in-sync checks it.

@@ -13,3 +13,7 @@ ignore = {
   "212/self", -- unused self
   "122", -- setting a read-only field of a global (e.g. vim.*): common in Neovim
 }
+
+-- TESTS/sheets_spec.lua is busted style (describe/it, `.testing.lua` sets its dialect); every other spec runs on
+-- TESTS/harness.lua.
+files["TESTS/sheets_spec.lua"] = { std = "+busted" }

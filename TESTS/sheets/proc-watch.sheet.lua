@@ -4,6 +4,7 @@
 -- which tools to use instead and opens nothing, so every check below holds on both.
 return {
   id = "debugging.proc-watch",
+  task = "debugging.nvim/abnahme-zwischenablage-startup-benchmark-und-proc-watch-von",
   feature = "debugging.proc-watch",
   title = "debugging.nvim: :Debug proc watch 2 runs the process watcher in a terminal split (a hint off Windows)",
   engine = "rpc",

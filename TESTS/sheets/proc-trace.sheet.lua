@@ -7,6 +7,7 @@
 -- command of the editor.
 return {
   id = "debugging.proc-trace",
+  task = "debugging.nvim/abnahme-zwischenablage-startup-benchmark-und-proc-watch-von",
   feature = "debugging.proc-trace",
   title = "debugging.nvim: :Debug proc start/stop/log records a command's process start and opens the log",
   engine = "rpc",

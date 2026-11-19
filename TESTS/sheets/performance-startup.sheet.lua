@@ -3,6 +3,7 @@
 -- editor's config is the sheet's sandbox (`XDG_CONFIG_HOME`), so the measured Neovim starts without a user config.
 return {
   id = "debugging.performance-startup",
+  task = "debugging.nvim/abnahme-zwischenablage-startup-benchmark-und-proc-watch-von",
   feature = "debugging.performance-startup",
   title = "debugging.nvim: :Debug performance startup 2 measures two headless starts and shows the report",
   engine = "rpc",

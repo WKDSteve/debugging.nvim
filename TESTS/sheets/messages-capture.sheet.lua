@@ -6,6 +6,7 @@
 -- the machine is never touched.
 return {
   id = "debugging.messages-capture",
+  task = "debugging.nvim/abnahme-zwischenablage-startup-benchmark-und-proc-watch-von",
   feature = "debugging.messages-capture",
   title = "debugging.nvim: <c writes :messages to a log file and hands it to the system clipboard tool",
   engine = "rpc",
