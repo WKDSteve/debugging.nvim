@@ -65,27 +65,7 @@ for _, action in ipairs(require("debugging.config.KEYMAP_ACTIONS")) do
   KNOWN.views.keymaps[action] = true
 end
 
----@internal
----`key` with the nearest known one as a hint when there is a plausible one.
----@param key any
----@param known table<string, any>
----@param prefix string
----@return string
-local function describe_unknown(key, known, prefix)
-  local levenshtein = require("lib.lua.strings.distance").levenshtein
-  local name = tostring(key)
-  local best, best_distance = nil, nil
-  for candidate in pairs(known) do
-    local d = levenshtein(name, candidate)
-    if d <= 3 and (best_distance == nil or d < best_distance) then
-      best, best_distance = candidate, d
-    end
-  end
-  if best then
-    return string.format("unknown option '%s%s' (did you mean '%s%s'?)", prefix, name, prefix, best)
-  end
-  return string.format("unknown option '%s%s'", prefix, name)
-end
+local describe_unknown = require("lib.lua.config.schema").describe_unknown
 
 ---@internal
 ---Recursively drop what cannot be merged at this level, and say so, walking
