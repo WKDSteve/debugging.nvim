@@ -161,6 +161,7 @@ Press `?` in the popup for this list as a cheatsheet (it opens over the popup,
 | `<C-e>` | flip between all expanded / all collapsed |
 | `<C-j>`, `+` | load older history (another `window_s` seconds; skips quiet stretches) |
 | `<C-k>`, `-` | take the older page loaded last out again; `+` loads it back |
+| `<C-c>` | copy the whole log (every entry unfolded, in the order shown) to the clipboard |
 | `?`, `g?` | cheatsheet |
 | `q`, `<Esc>` | close |
 

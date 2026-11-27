@@ -28,8 +28,10 @@ does not open an empty popup.
 
 How it renders depends on [ui.nvim]:
 
-- **With ui.nvim** (`ui.kit.message_log`): live and paginated. New messages
-  that match the filter are appended while the popup is open, older history
+- **With ui.nvim** (`ui.kit.message_log`): live and paginated. The open popup
+  updates itself: a new message that matches the filter shows up at once, no
+  reopen, no refresh key (few message viewers do this). `<C-c>` copies the whole
+  log to the clipboard. Older history
   loads one `window_s` page at a time (quiet stretches are skipped). Each
   message is folded to one header line -- wall-clock time and age, a tag
   (level, Vim error code like `E492`, kind, source) and the title cut to fit;

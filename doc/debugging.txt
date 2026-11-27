@@ -174,7 +174,9 @@ Recent-messages popup                                        *debugging-recent*
   One popup over the `lib.nvim.messages` store, three filters (non-error /
   all / error). It opens on the last `views.recent.window_s` seconds, topped
   up to `views.recent.min_entries` entries. With ui.nvim
-  (`ui.kit.message_log`) it is live and paginated (`?` lists its keys),
+  (`ui.kit.message_log`) it is live -- an open popup appends new matching
+  messages by itself -- and paginated; <C-c> copies the whole log (`?` lists
+  its keys),
   each message folded to a header line (time, tag such as `ERROR E492`,
   title) that <CR> unfolds to the full text wrapped to
   `views.recent.wrap_width`;

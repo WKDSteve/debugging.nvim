@@ -34,6 +34,17 @@ rather than memorised.
 
 ---
 
+## Highlight: the messages popup updates itself
+
+`<lt>n` / `<lt>m` / `<lt>e` open the recent messages (all / non-error / errors) in a
+popup that stays **live**: while it is open, every new notification or message that
+matches its filter is appended on the spot, with no reopening and no refresh key. Older
+history pages in on demand (`<C-j>`), entries fold to one header line (`<CR>` unfolds),
+and `<C-c>` copies the whole log to the clipboard. Needs [ui.nvim](https://github.com/WKDSteve/ui.nvim);
+without it the popup is a static snapshot. Details: [Views](docs/FEATURES/VIEWS.md).
+
+---
+
 ## Documentation
 
 Start at [docs/README.md](docs/README.md) — what's where, and which question
